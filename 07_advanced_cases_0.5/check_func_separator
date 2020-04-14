@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Test if the shell handles the # character
+# Test if the shell handles the ; character
 
 command="ls ; pwd"
 
