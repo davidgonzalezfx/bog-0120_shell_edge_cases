@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Check if you print enviroment (ONLY CHECKS IF YOU DO NOT THROWN ERROR XD)
+# Check cd command
 
 command="cd -"
 

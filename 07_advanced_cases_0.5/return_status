@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Check space
+# Check exit status
 
-command=" "
+command="$$"
 tmp_file="checker_tmp_file_$RANDOM"
 
 # clean up
@@ -12,19 +12,21 @@ rm -f $tmp_file
 # create a pseudo random file
 touch $tmp_file
 # send commands
-echo "$command" | $SHELL > $OUTPUTFILE 2> /dev/null &
-
+echo -e "$command" | $SHELL > $OUTPUTFILE 2> /dev/null &
+echo -e "$command" | /bin/sh > answer 2> /dev/null &
 # wait a little bit
 $SLEEP $SLEEPSECONDS
-
 # check the result
-nmatch=`cat $OUTPUTFILE | grep -c "$tmp_file"`
+diff -q $OUTPUTFILE answer
+nmatch=$?
 if [ $nmatch -eq 0 ]; then
-	   print_ok
+	   print_ok_b
 else
 	   print_ko
 fi
 
 # clean up
 stop_shell
+rm -f $OUTPUTFILE
+rm -f answer
 rm -f $tmp_file
